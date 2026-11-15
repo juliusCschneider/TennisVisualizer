@@ -6,3 +6,8 @@ The CV part consists of:
 3. Train a custom yolo network to find the tennis ball in the video and trace where it hits the field
 Based on where it hits the field also visualise the ball in open GL.
 
+
+TODO on CV part:
+1. often the Bounce point is misidentified: def find_contact_and_bounce_frames(frames) needs to be adjusted since atm the point of contact to racket is identified as bounce.
+2. 
+
