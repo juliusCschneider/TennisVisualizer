@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include(FetchContent)
 
+# GLFW
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
@@ -18,6 +19,18 @@ FetchContent_Declare(glm
   GIT_TAG 1.0.1)
 FetchContent_MakeAvailable(glfw glm)
 
+# ASSIMP
+set(ASSIMP_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(ASSIMP_BUILD_ASSIMP_TOOLS OFF CACHE BOOL "" FORCE)
+set(ASSIMP_BUILD_SAMPLES OFF CACHE BOOL "" FORCE)
+set(ASSIMP_INSTALL OFF CACHE BOOL "" FORCE)
+
+FetchContent_Declare(assimp
+  GIT_REPOSITORY https://github.com/assimp/assimp.git
+  GIT_TAG v5.4.3
+)
+FetchContent_MakeAvailable(assimp)
+
 add_library(glad STATIC lib/glad/src/glad.c)
 target_include_directories(glad PUBLIC lib/glad/include)
 
@@ -26,7 +39,12 @@ add_executable(app
   src/gl/window.cpp
 )
 target_include_directories(app PRIVATE src)
-target_link_libraries(app PRIVATE glfw glad glm::glm)
+target_link_libraries(app PRIVATE 
+  glfw
+  glad
+  glm::glm
+  assimp::assimp
+)
 
 target_compile_definitions(app PRIVATE
   ASSET_DIR="${CMAKE_SOURCE_DIR}/assets/")
