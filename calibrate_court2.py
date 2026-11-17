@@ -296,10 +296,10 @@ def reconstruct_3d_ball_arc(frames, fps, contact_idx, bounce_idx, bounce_3d):
 
 
 def calibrate_and_export(
-    video_path="Videos/tennis3.mp4",
-    tracking_json="results/tennis3_tracking.json",
-    output_video="results/tennis3_court_overlay.mp4",
-    output_opengl_json="results/tennis3_opengl.json",
+    video_path="Videos/tennis4.mp4",
+    tracking_json="results/tennis4_tracking.json",
+    output_video="results/tennis4_court_overlay.mp4",
+    output_opengl_json="results/tennis4_opengl.json",
 ):
     with open(tracking_json, "r") as f:
         data = json.load(f)
