@@ -21,7 +21,11 @@ FetchContent_MakeAvailable(glfw glm)
 add_library(glad STATIC lib/glad/src/glad.c)
 target_include_directories(glad PUBLIC lib/glad/include)
 
-add_executable(app src/main.cpp)
+add_executable(app
+  src/main.cpp 
+  src/gl/window.cpp
+)
+target_include_directories(app PRIVATE src)
 target_link_libraries(app PRIVATE glfw glad glm::glm)
 
 target_compile_definitions(app PRIVATE
