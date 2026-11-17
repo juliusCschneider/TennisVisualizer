@@ -1,0 +1,17 @@
+cat << 'EOF' >> .gitignore
+
+.DS_Store
+
+*.pt
+*.onnx
+*.engine
+training/tennis-ball-detection-*/
+
+*.mp4
+results/
+runs/
+
+__pycache__/
+*.pyc
+.venv/
+EOF
