@@ -1,3 +1,7 @@
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 cmake_minimum_required(VERSION 3.16)
 project(FinalProject LANGUAGES C CXX)
 
@@ -36,6 +40,8 @@ target_include_directories(glad PUBLIC lib/glad/include)
 
 add_executable(app
   src/main.cpp 
+  src/gl/mesh.cpp
+  src/gl/shaders.cpp
   src/gl/window.cpp
 )
 target_include_directories(app PRIVATE src)
@@ -48,3 +54,4 @@ target_link_libraries(app PRIVATE
 
 target_compile_definitions(app PRIVATE
   ASSET_DIR="${CMAKE_SOURCE_DIR}/assets/")
+target_compile_options(app PRIVATE -Wall -Wextra -Wunused)
