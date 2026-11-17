@@ -1,18 +1,16 @@
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 
-struct Vertex
-{
+struct Vertex{
     glm::vec3 pos;
     glm::vec3 norm;
     glm::vec3 color;
 };
 
-struct Mesh
-{
+struct Mesh{
     int n;
     GLuint vao;
     GLuint vbo;
 
-    void load(const char *path);
+    void load(const char* path);
 };

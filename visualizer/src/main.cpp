@@ -4,10 +4,8 @@
 
 #include <glm/gtc/type_ptr.hpp>
 
-int main()
-{
-    if (!init())
-        return -1;
+int main(){
+    if (!init()) return -1;
 
     GLuint program = createProgram(ASSET_DIR "shaders/v.glsl", ASSET_DIR "shaders/f.glsl");
 
@@ -15,8 +13,7 @@ int main()
     court.load(ASSET_DIR "models/Court.obj");
 
     GLint xformLoc = glGetUniformLocation(program, "xform");
-    while (!glfwWindowShouldClose(window))
-    {
+    while (!glfwWindowShouldClose(window)){
         glfwPollEvents();
 
         glClearColor(0.15f, 0.18f, 0.22f, 1.0f);

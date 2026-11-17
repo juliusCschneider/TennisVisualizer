@@ -8,33 +8,28 @@
 #include <glad/glad.h>
 #include <vector>
 
-void Mesh::load(const char *path)
-{
+void Mesh::load(const char* path){
     std::vector<Vertex> vertices;
     Assimp::Importer importer;
-    const aiScene *scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_PreTransformVertices);
+    const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_PreTransformVertices);
 
-    if (!scene || !scene->mRootNode)
-    {
+    if (!scene || !scene->mRootNode){
         std::cerr << "Assimp error: " << importer.GetErrorString() << "\n";
         return;
     }
 
-    for (unsigned m = 0; m < scene->mNumMeshes; m++)
-    {
-        const aiMesh *mesh = scene->mMeshes[m];
+    for (unsigned m = 0; m < scene->mNumMeshes; m++){
+        const aiMesh* mesh = scene->mMeshes[m];
         aiColor4D diff(0.8f, 0.8f, 0.8f, 1.0f);
         aiGetMaterialColor(scene->mMaterials[mesh->mMaterialIndex], AI_MATKEY_COLOR_DIFFUSE, &diff);
 
-        for (unsigned f = 0; f < mesh->mNumFaces; f++)
-        {
-            const aiFace &face = mesh->mFaces[f];
-            for (unsigned i = 0; i < face.mNumIndices; i++)
-            {
+        for (unsigned f = 0; f < mesh->mNumFaces; f++){
+            const aiFace& face = mesh->mFaces[f];
+            for (unsigned i = 0; i < face.mNumIndices; i++){
                 unsigned idx = face.mIndices[i];
-                const aiVector3D &v = mesh->mVertices[idx];
+                const aiVector3D& v = mesh->mVertices[idx];
                 const aiVector3D n = mesh->HasNormals() ? mesh->mNormals[idx] : aiVector3D(0, 1, 0);
-                vertices.push_back({{v.x, v.y, v.z}, {n.x, n.y, n.z}, {diff.r, diff.g, diff.b}});
+                vertices.push_back({ { v.x, v.y, v.z },{ n.x, n.y, n.z },{ diff.r, diff.g, diff.b } });
             }
         }
     }
@@ -45,11 +40,11 @@ void Mesh::load(const char *path)
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), vertices.data(), GL_STATIC_DRAW);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)offsetof(Vertex, pos));
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, pos));
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)offsetof(Vertex, norm));
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, norm));
     glEnableVertexAttribArray(1);
-    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)offsetof(Vertex, color));
+    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, color));
     glEnableVertexAttribArray(2);
 
     n = vertices.size();

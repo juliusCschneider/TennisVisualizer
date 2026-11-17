@@ -5,13 +5,12 @@
 #include <glad/glad.h>
 #include <string>
 
-GLuint compileShader(GLenum type, const char *path)
-{
+GLuint compileShader(GLenum type, const char* path){
     std::ifstream file(path);
     std::stringstream ss;
     ss << file.rdbuf();
     std::string src = ss.str();
-    const char *code = src.c_str();
+    const char* code = src.c_str();
 
     GLuint shader = glCreateShader(type);
     glShaderSource(shader, 1, &code, nullptr);
@@ -19,8 +18,7 @@ GLuint compileShader(GLenum type, const char *path)
     return shader;
 }
 
-GLuint createProgram(const char *vsPath, const char *fsPath)
-{
+GLuint createProgram(const char* vsPath, const char* fsPath){
     GLuint vs = compileShader(GL_VERTEX_SHADER, vsPath);
     GLuint fs = compileShader(GL_FRAGMENT_SHADER, fsPath);
     GLuint prog = glCreateProgram();
