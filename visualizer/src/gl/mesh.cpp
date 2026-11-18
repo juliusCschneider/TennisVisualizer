@@ -13,19 +13,19 @@ void Mesh::load(const char* path){
     Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_PreTransformVertices);
 
-    if (!scene || !scene->mRootNode){
+    if(!scene || !scene->mRootNode){
         std::cerr << "Assimp error: " << importer.GetErrorString() << "\n";
         return;
     }
 
-    for (unsigned m = 0; m < scene->mNumMeshes; m++){
+    for(unsigned m = 0; m < scene->mNumMeshes; m++){
         const aiMesh* mesh = scene->mMeshes[m];
         aiColor4D diff(0.8f, 0.8f, 0.8f, 1.0f);
         aiGetMaterialColor(scene->mMaterials[mesh->mMaterialIndex], AI_MATKEY_COLOR_DIFFUSE, &diff);
 
-        for (unsigned f = 0; f < mesh->mNumFaces; f++){
+        for(unsigned f = 0; f < mesh->mNumFaces; f++){
             const aiFace& face = mesh->mFaces[f];
-            for (unsigned i = 0; i < face.mNumIndices; i++){
+            for(unsigned i = 0; i < face.mNumIndices; i++){
                 unsigned idx = face.mIndices[i];
                 const aiVector3D& v = mesh->mVertices[idx];
                 const aiVector3D n = mesh->HasNormals() ? mesh->mNormals[idx] : aiVector3D(0, 1, 0);
