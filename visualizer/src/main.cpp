@@ -9,8 +9,9 @@ int main(){
 
     GLuint program = createProgram(ASSET_DIR "shaders/v.glsl", ASSET_DIR "shaders/f.glsl");
 
-    Mesh court;
+    Mesh court, ball;
     court.load(ASSET_DIR "models/Court.obj");
+    ball.load(ASSET_DIR "models/Ball.obj");
 
     GLint xformLoc = glGetUniformLocation(program, "xform");
     while (!glfwWindowShouldClose(window)){
@@ -21,13 +22,21 @@ int main(){
 
         glm::mat4 proj = glm::perspective(glm::radians(45.0f), (float)WIDTH / HEIGHT, 0.1f, 100.0f);
         glm::mat4 view = glm::lookAt(glm::vec3(0.0f, 18.0f, 28.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        glm::mat4 model = glm::rotate(glm::mat4(1.0f), (float)glfwGetTime() * 0.4f, glm::vec3(0.0f, 1.0f, 0.0f));
-        glm::mat4 xform = proj * view * model;
+
+        glm::mat4 courtModel = glm::rotate(glm::mat4(1.0f), (float)glfwGetTime() * 0.4f, glm::vec3(0.0f, 1.0f, 0.0f));
 
         glUseProgram(program);
-        glUniformMatrix4fv(xformLoc, 1, GL_FALSE, glm::value_ptr(xform));
+
+        glUniformMatrix4fv(xformLoc, 1, GL_FALSE, glm::value_ptr(proj * view * courtModel));
         glBindVertexArray(court.vao);
         glDrawArrays(GL_TRIANGLES, 0, (GLsizei)court.n);
+
+        glm::mat4 ballModel = glm::rotate(glm::mat4(1.0f), (float)glfwGetTime() * 0.4f, glm::vec3(0.0f, 1.0f, 0.0f));
+        ballModel = glm::translate(ballModel, glm::vec3(0.0f, 1.0f, 0.0f));
+
+        glUniformMatrix4fv(xformLoc, 1, GL_FALSE, glm::value_ptr(proj * view * ballModel));
+        glBindVertexArray(ball.vao);
+        glDrawArrays(GL_TRIANGLES, 0, (GLsizei)ball.n);
 
         glfwSwapBuffers(window);
     }
