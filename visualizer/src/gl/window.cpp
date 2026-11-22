@@ -1,6 +1,7 @@
 #include "gl/window.hpp"
 
 #include "gl/camera.hpp"
+#include "gl/input.hpp"
 #include "gl/shaders.hpp"
 #include "gl/mesh.hpp"
 
@@ -27,6 +28,9 @@ int initGL(){
     }
     glfwMakeContextCurrent(window);
     glfwSetKeyCallback(window, keyPressed);
+    glfwSetMouseButtonCallback(window, mouseButton);
+    glfwSetCursorPosCallback(window, mouseMove);
+    glfwSetScrollCallback(window, scroll);
 
     if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)){
         std::cerr << "Failed to initialize GLAD\n";
@@ -38,9 +42,7 @@ int initGL(){
     return 1;
 }
 
-void keyPressed(GLFWwindow* window, int key, int _scancode, int action, int _mode){
-    if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) glfwSetWindowShouldClose(window, GL_TRUE);
-}
+
 
 
 void start(){
@@ -60,8 +62,11 @@ void start(){
         glm::mat4 proj = cameraProj();
         glm::mat4 view = cameraView();
 
+
+        // TMP
+
         // TODO: Drawf or smtg
-        glm::mat4 courtModel = glm::rotate(glm::mat4(1.0f), (float)glfwGetTime() * 0.4f, glm::vec3(0.0f, 1.0f, 0.0f));
+        glm::mat4 courtModel = glm::rotate(glm::mat4(1.0f), 0.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 
         //Tmp render system
         glUseProgram(program);
@@ -70,14 +75,13 @@ void start(){
         glBindVertexArray(court.vao);
         glDrawArrays(GL_TRIANGLES, 0, (GLsizei)court.n);
 
-        glm::mat4 ballModel = glm::rotate(glm::mat4(1.0f), (float)glfwGetTime() * 0.4f, glm::vec3(0.0f, 1.0f, 0.0f));
-        ballModel = glm::translate(ballModel, glm::vec3(0.0f, 1.0f, 0.0f));
+        // END TMP
 
-        glUniformMatrix4fv(xformLoc, 1, GL_FALSE, glm::value_ptr(proj * view * ballModel));
-        glBindVertexArray(ball.vao);
-        glDrawArrays(GL_TRIANGLES, 0, (GLsizei)ball.n);
+        // std::cout << mouseScroll - pmouseScroll << std::endl;
 
         glfwSwapBuffers(window);
+        updateCamera();
+        updateInput();
     }
 }
 
