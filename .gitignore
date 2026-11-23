@@ -1,2 +1,16 @@
 .DS_Store
 .vscode
+
+*.pt
+*.onnx
+*.engine
+training/tennis-ball-detection-*/
+
+*.mp4
+results/
+runs/
+
+__pycache__/
+*.pyc
+.venv/
+EOF

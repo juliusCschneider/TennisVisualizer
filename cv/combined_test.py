@@ -148,7 +148,7 @@ def filter_and_interpolate_ball(
 
 
 def run_combined_tracker(
-    video_path="Videos/tennis3.mp4",
+    video_path="Videos/tennis4.mp4",
     output_dir="/Users/christophmissall/Desktop/Tennis_334/TennisVisualizer/results",
     show_window=True,
 ):
@@ -314,4 +314,4 @@ def run_combined_tracker(
 
 
 if __name__ == "__main__":
-    run_combined_tracker("Videos/tennis3.mp4")
+    run_combined_tracker("Videos/tennis4.mp4")
