@@ -15,4 +15,5 @@ struct Mesh{
     GLuint vbo;
 
     void load(const char* path);
+    void draw(glm::mat4 model);
 };

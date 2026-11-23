@@ -1,5 +1,8 @@
 #include "gl/mesh.hpp"
 
+#include "gl/camera.hpp"
+#include "gl/window.hpp"
+
 #include <iostream>
 
 #include <assimp/Importer.hpp>
@@ -48,4 +51,10 @@ void Mesh::load(const char* path){
     glEnableVertexAttribArray(2);
 
     n = vertices.size();
+}
+
+void Mesh::draw(glm::mat4 model){
+    glUniformMatrix4fv(xformLoc, 1, GL_FALSE, glm::value_ptr(cameraProj() * cameraView() * model)); // TODO: Calculating these matrices every time per mesh is probably inefficient, but not nearly as inefficient as the drawing and calculations in rendering right? Surely. Should probs profile to be sure, but I don't gaf
+    glBindVertexArray(vao);
+    glDrawArrays(GL_TRIANGLES, 0, (GLsizei)n);
 }

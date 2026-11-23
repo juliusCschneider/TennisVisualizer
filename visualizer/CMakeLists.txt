@@ -40,6 +40,7 @@ target_include_directories(glad PUBLIC lib/glad/include)
 
 add_executable(app
   src/main.cpp 
+  src/core/world.cpp
   src/gl/camera.cpp
   src/gl/input.cpp
   src/gl/mesh.cpp

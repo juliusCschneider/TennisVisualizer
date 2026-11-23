@@ -41,6 +41,7 @@ void updateCamera(){
         yaw += (mouse.x - pmouse.x) * ROT_SENSITIVITY;
         pitch += (mouse.y - pmouse.y) * ROT_SENSITIVITY;
     }
+    if(mousePressed[1]) initCamera();
     if(mousePressed[0]){
         glm::vec3 forward(-cos(yaw), 0.0f, -sin(yaw));
         glm::vec3 right(-sin(yaw), 0.0f, cos(yaw));
