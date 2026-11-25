@@ -1,6 +1,5 @@
-cat << 'EOF' >> .gitignore
-
 .DS_Store
+.vscode
 
 *.pt
 *.onnx
