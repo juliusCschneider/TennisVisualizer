@@ -6,7 +6,6 @@
 #include "gl/shaders.hpp"
 #include "gl/mesh.hpp"
 
-#include <glm/gtc/type_ptr.hpp>
 #include <iostream>
 
 GLFWwindow* window = nullptr;
@@ -54,7 +53,7 @@ void start(){
     while(!glfwWindowShouldClose(window)){
         glfwPollEvents();
 
-        glClearColor(0.15f, 0.18f, 0.22f, 1.0f);
+        glClearColor(0.1f, 0.15f, 0.2f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         glUseProgram(program);
@@ -70,5 +69,6 @@ void start(){
 
 void dispose(){
     // TODO: Asset tracking and disposal (VAO + VBO dispose, etc)
+    // Hehe this is never going to be done huh (memory leak galore)
     glfwTerminate();
 }

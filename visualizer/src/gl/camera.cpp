@@ -1,5 +1,7 @@
 #include "camera.hpp"
 
+// Maybe I should have made this an object so we can have multiple cameras ? Eh it's whatever
+
 #include "gl/input.hpp"
 #include "gl/window.hpp"
 

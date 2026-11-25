@@ -40,6 +40,7 @@ target_include_directories(glad PUBLIC lib/glad/include)
 
 add_executable(app
   src/main.cpp 
+  src/core/figure.cpp
   src/core/world.cpp
   src/gl/camera.cpp
   src/gl/input.cpp
@@ -56,5 +57,6 @@ target_link_libraries(app PRIVATE
 )
 
 target_compile_definitions(app PRIVATE
+  GLFW_INCLUDE_NONE
   ASSET_DIR="${CMAKE_SOURCE_DIR}/assets/")
 target_compile_options(app PRIVATE -Wall -Wextra -Wunused)

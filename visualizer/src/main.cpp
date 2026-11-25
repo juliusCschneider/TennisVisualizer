@@ -5,7 +5,6 @@
 int main(){
     if(!initGL()) return -1;
     initCamera();
-
     start();
     dispose();
     return 0;

@@ -23,7 +23,7 @@ void Mesh::load(const char* path){
 
     for(unsigned m = 0; m < scene->mNumMeshes; m++){
         const aiMesh* mesh = scene->mMeshes[m];
-        aiColor4D diff(0.8f, 0.8f, 0.8f, 1.0f);
+        aiColor4D diff(0.0f, 0.0f, 0.0f, 1.0f);
         aiGetMaterialColor(scene->mMaterials[mesh->mMaterialIndex], AI_MATKEY_COLOR_DIFFUSE, &diff);
 
         for(unsigned f = 0; f < mesh->mNumFaces; f++){
@@ -32,10 +32,11 @@ void Mesh::load(const char* path){
                 unsigned idx = face.mIndices[i];
                 const aiVector3D& v = mesh->mVertices[idx];
                 const aiVector3D n = mesh->HasNormals() ? mesh->mNormals[idx] : aiVector3D(0, 1, 0);
-                vertices.push_back({ { v.x, v.y, v.z },{ n.x, n.y, n.z },{ diff.r, diff.g, diff.b } });
+                vertices.push_back({{v.x, v.y, v.z},{n.x, n.y, n.z},{diff.r, diff.g, diff.b}});
             }
         }
     }
+
     glGenVertexArrays(1, &vao);
     glGenBuffers(1, &vbo);
 
@@ -54,7 +55,7 @@ void Mesh::load(const char* path){
 }
 
 void Mesh::draw(glm::mat4 model){
-    glUniformMatrix4fv(xformLoc, 1, GL_FALSE, glm::value_ptr(cameraProj() * cameraView() * model)); // TODO: Calculating these matrices every time per mesh is probably inefficient, but not nearly as inefficient as the drawing and calculations in rendering right? Surely. Should probs profile to be sure, but I don't gaf
+    glUniformMatrix4fv(xformLoc, 1, GL_FALSE, glm::value_ptr(cameraProj() * cameraView() * model)); // TODO: Calculating these camera matrices every time per mesh is probably inefficient, but not nearly as inefficient as the drawing and calculations in rendering right? Surely. Should probs profile to be sure, but I don't gaf
     glBindVertexArray(vao);
     glDrawArrays(GL_TRIANGLES, 0, (GLsizei)n);
 }
