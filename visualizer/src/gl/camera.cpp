@@ -17,7 +17,7 @@ glm::mat4 cameraView(){
 }
 
 void calcCamera(){
-    const float maxPitch = 1.55334f, maxDistance = 100.0f, minDistance = 1.0f;;
+    const float maxPitch = 1.55334f, maxDistance = 70.0f, minDistance = 1.0f;;
     distance = glm::clamp(distance, minDistance, maxDistance);
     pitch = glm::clamp(pitch, -maxPitch, maxPitch);
     float cosPitch = cos(pitch);
